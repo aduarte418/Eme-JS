@@ -1,3 +1,5 @@
+const _DEBUGMODE = true;
+
 const loteIncidentes = [
     { id: 101, descripcion: "Gato atrapado en un árbol", gravedad: 1, resuelta: false },
     { id: 102, descripcion: "Falsa alarma de humo en local", gravedad: 2, resuelta: true },
@@ -9,23 +11,45 @@ const loteIncidentes = [
 ];
 
 let recursosDisponibles = 4;
+/**
+ * 
+ * @param {*} incidente 
+ */
 
+function procesarIncidente(incidente, recursosDisponibles) {
+    if (incidente.gravedad <= 3) {
+        console.log(`Incidencia ${incidente.descripcion} con ID: ${incidente.id} leve, estamos enviando una unidad`)
+        recursosDisponibles = recursosDisponibles - 1;
 
-for (let i = 0; i < loteIncidentes.length; i++) {
-    if (loteIncidentes[i].resuelta = true) {
-        console.log("Incidente Resuelto.")
-        continue;
+    } else if (incidente.gravedad > 3) {
+        console.log(`Incidencia ${incidente.descripcion} con ID: ${incidente.id} grave, estamos enviando dos unidades`)
+        recursosDisponibles = recursosDisponibles - 2;
     }
+    return recursosDisponibles;
+}
 
-    if (loteIncidentes[i].resuelta = false) {
-        if (loteIncidentes[i].gravedad <= 3) {
-            console.log("Incidencia leve, estamos enviando una unidad")
-            recursosDisponibles = recursosDisponibles - 1;
 
-        } else if (loteIncidentes[i].gravedad > 3) {
-            console.log("Incidencia grave, estamos enviando dos unidades")
-            recursosDisponibles = recursosDisponibles - 2;
+function lanzar() {
+    /**
+     * 
+     */
+    for (let i = 0; i < loteIncidentes.length; i++) {
+        if (loteIncidentes[i].resuelta === true) {
+            console.log(`Incidente ${loteIncidentes[i].descripcion} con ID: ${loteIncidentes[i].id} resuelto.`)
+            continue;
         }
+        if (loteIncidentes[i].resuelta === false) {
+            recursosDisponibles = procesarIncidente(loteIncidentes[i], recursosDisponibles);
+
+        }
+        if (recursosDisponibles === 0) {
+            console.log("-------------------------------------------------------------------------------------");
+            console.log("Estamos saturados, no hay recursos suficientes, espere a que lleguen refuerzos");
+            console.log("-------------------------------------------------------------------------------------");
+            break;
+        }
+
     }
 
 }
+lanzar();
