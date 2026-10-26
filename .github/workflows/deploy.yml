@@ -1,0 +1,62 @@
+
+name: Generar y Desplegar JSDoc
+
+on:
+  push:
+    branches:
+      - main
+      - master
+
+# Permisos necesarios para GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Evita despliegues simultáneos
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build-and-deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Descargar el código fuente del repo
+      - name: Checkout del repositorio
+        uses: actions/checkout@v4
+
+      # 2. Configurar el entorno de Node.js
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+
+      # 3. Instalar las dependencias del proyecto
+      - name: Instalar JSDoc
+        run: npm install jsdoc
+        #revisar un posible comando npm ci
+
+      # 4. Generar la documentación HTML
+      - name: Generar documentación con JSDoc
+        run: npx jsdoc ./ -d out
+
+      # 5. Configurar GitHub Pages
+      - name: Configurar Pages
+        uses: actions/configure-pages@v5
+
+      # 6. Subir el artefacto de documentación (Carpeta out que contiene el HTML)
+      - name: Subir artefacto de la documentación
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: out
+
+      # 7. Desplegar el artefacto en GitHub Pages
+      - name: Desplegar en GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
