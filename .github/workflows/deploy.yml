@@ -35,12 +35,10 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "20"
-          cache: npm
 
       # 3. Instalar las dependencias del proyecto
       - name: Instalar JSDoc
         run: npm install jsdoc
-        #revisar un posible comando npm ci
 
       # 4. Generar la documentación HTML
       - name: Generar documentación con JSDoc

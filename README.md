@@ -12,7 +12,7 @@ Repo para la actividad 2.8 de Simulación de Emergencias mediante Pair Programmi
  
 Durante la fase de Debugging, además de haber documentado las variables y funciones, se ha testeado la depuración introduciendo intencionalmente un bug. En la siguiente captura de pantalla aparece recogido el bug en el Call Stack del modo Debug de Visual Studio Code, apreciándose en el cuadro rojo cómo salta la excepción al producirse el error, que en este caso es de referencia al no haberse definido la variable "recursosDispnibles", dado que se cambió a propósito a su versión bug "recursosDisponibl" para comprobar que en efecto se detectan los errores correctamente.
 
-![](/Eme-JS/screenshots/DebugScreenshot.png)
+![](/screenshots/DebugScreenshot.png)
 
 
 ### 👥 Experiencia de Pair Programming

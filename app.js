@@ -15,11 +15,6 @@ const loteIncidentes = [
 /**@type {number} */
 let recursosDisponibles = 4;
 
-// Mensaje inicial de depuración por consola
-if (_DEBUGMODE) {
-    console.log("DEBUG: Recursos iniciales:", recursosDisponibles);
-}
-
 /**
  * Función para procesar incidentes
  * Según la gravedad de la incidencia, asigna recursos para tratarla
@@ -28,11 +23,6 @@ if (_DEBUGMODE) {
  * @returns {number} Número de recursos disponibles
  */
 function procesarIncidente(incidente, recursosDisponibles) {
-    // Mensaje de depuración para controlar el número de recursos disponibles durante procesarIncidente
-    if (_DEBUGMODE) {
-        console.log("DEBUG: Procesando incidente", incidente.id);
-        console.log("DEBUG: Recursos disponibles:", recursosDisponibles);
-    }
     // Lógica de la función
     if (incidente.gravedad <= 3) {
         console.log(`Incidencia ${incidente.descripcion} con ID: ${incidente.id} leve, estamos enviando una unidad`)
@@ -59,9 +49,6 @@ function lanzar() {
             recursosDisponibles = procesarIncidente(loteIncidentes[i], recursosDisponibles);
         }
         if (recursosDisponibles === 0) {
-            if (_DEBUGMODE) {
-                console.log("DEBUG: Recursos restantes:", recursosDisponibles);
-            }
             console.log("-------------------------------------------------------------------------------------");
             console.log("Estamos saturados, no hay recursos suficientes, espere a que lleguen refuerzos");
             console.log("-------------------------------------------------------------------------------------");
